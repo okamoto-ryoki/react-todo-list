@@ -1,0 +1,59 @@
+#root {
+    width: 100%;
+    max-width: 100%;
+}
+
+.todo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+h1 {
+    margin: 0;
+}
+
+.current {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+    width: 30%;
+    min-width: 360px;
+}
+
+.current div {
+    border-radius: 8px;
+    background-color: rgb(237, 237, 237);
+    padding: 8px;
+}
+
+.search {
+    display: flex;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgb(243, 251, 255);
+    gap: 8px;
+    width: 80%;
+}
+
+.input {
+    /* width: ; */
+}
+
+.data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.segment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    min-width: 360px;
+}
