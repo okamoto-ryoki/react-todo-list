@@ -53,6 +53,7 @@ export const Todo = () => {
 
     const completedCount = todos.filter(t => t.completed).length;
     const incompleteCount = todos.length - completedCount;
+    
 
     return (
         <div className={styles.todo}>
