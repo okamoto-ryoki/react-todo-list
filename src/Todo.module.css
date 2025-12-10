@@ -48,6 +48,7 @@ h1 {
     border-radius: 4px;
     border: 1px solid #ccc;
     font-size: 16px;
+    padding: 4px;
 }
 
 .search select {
@@ -138,22 +139,51 @@ h1 {
 }
 
 .value {
-    margin-right: 12px;
-    margin-left: 12px;
+    margin-right: 16px;
+    margin-left: 16px;
+}
+
+.nonevalue {
+    margin-right: 16px;
+    margin-left: 16px;
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
 }
 
 ul {
     width: 70%;
 }
 
-ul .li {
+ul input {
+    margin-left: 16px;
+}
+
+.high {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 18px;
-    border-left: 3px solid black;
+    border-left: 3px solid #f25361;
+    border-bottom: 1px solid #f3f3f3;
+    padding: 8px 0;
 }
 
-.li input {
-    margin-left: 16px;
+.middle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    border-left: 3px solid #faaa19;
+    border-bottom: 1px solid #f3f3f3;
+    padding: 8px 0;
+}
+
+.low {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    border-left: 3px solid #3fd277;
+    border-bottom: 1px solid #f3f3f3;
+    padding: 8px 0;
 }

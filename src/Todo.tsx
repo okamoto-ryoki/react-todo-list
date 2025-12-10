@@ -113,7 +113,12 @@ export const Todo = () => {
                 </div>
                 <ul>
                     {filteredTodos.map((todo) => (
-                        <li className={styles.li} key={todo.id}>
+                        <li className={todo.priority === "高"
+                            ? styles.high : todo.priority === "中"
+                            ? styles.middle
+                            : styles.low} 
+                            key={todo.id}
+                        >
                                 <div>
                                     <input
                                     type="checkbox"
@@ -121,7 +126,7 @@ export const Todo = () => {
                                     checked={todo.completed}
                                     onChange={()=>togglecheck(todo.id)}
                                     ></input>
-                                    <span className={styles.value}>{todo.value}</span>
+                                    <span className={!todo.completed ? styles.value : styles.nonevalue}>{todo.value}</span>
                                     <span className={styles.priority}>{todo.priority}</span>
                                 </div>
                                 <div>
