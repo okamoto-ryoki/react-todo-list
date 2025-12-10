@@ -13,6 +13,8 @@ export const Todo = () => {
     const [priority, setPriority] = useState("");
     const [todos, setTodos] = useState<Todo[]>([]);
 
+    const [filter, setFilter] = useState("all");
+
     useEffect(()=>{
         const data =localStorage.getItem("data")
         if(data){
@@ -53,11 +55,26 @@ export const Todo = () => {
 
     const completedCount = todos.filter(t => t.completed).length;
     const incompleteCount = todos.length - completedCount;
-    
+
+    const filteredTodos = todos.filter(todo => {
+        if(filter === "unfinished")  return !todo.completed;
+        if(filter === "finished") return todo.completed ;
+        return true;
+    })
+
+    function handleAll() {
+        setFilter("all");
+    }
+    const handleUnfinished = () => {
+        setFilter("unfinished")
+    }
+    const handleFinished = () => {
+        setFilter("finished")
+    }
 
     return (
         <div className={styles.todo}>
-            <h1>React TODOアプリ</h1>
+            <h1>TODOリスト</h1>
             <div className={styles.current}>
                 <div>総数：{todos.length}</div>
                 <div>完了：{completedCount}</div>
@@ -73,7 +90,7 @@ export const Todo = () => {
                 <select
                     value={priority}
                     onChange={(e) => setPriority(e.target.value)}
-                    className="border p-2"
+                    className="select"
                 >
                     <option value="">選択してください</option>
                     <option value="高">高優先度</option>
@@ -87,26 +104,33 @@ export const Todo = () => {
             </div>
             <div className={styles.data}>
                 <div className={styles.segment}>
-                    <button>全て</button>
-                    <button>未完了</button>
-                    <button>完了済み</button>
+                    <button onClick={()=>handleAll()} 
+                    className={filter === "all" ? styles.active : styles.inactive}>全て</button>
+                    <button onClick={()=>handleUnfinished()}
+                    className={filter === "unfinished" ? styles.active : styles.inactive}>未完了</button>
+                    <button onClick={()=>handleFinished()}
+                    className={filter === "finished" ? styles.active : styles.inactive}>完了済み</button>
                 </div>
-                    <ul>
-                        {todos.map((todo) => (
-                            <li key={todo.id}>
-                                <input
-                                type="checkbox"
-                                id={todo.id}
-                                checked={todo.completed}
-                                onChange={()=>togglecheck(todo.id)}
-                                ></input>
-                                {todo.value}
-                                {todo.priority}
-                                <button>編集</button>
-                                <button onClick={()=>handledelete(todo.id)}>削除</button>
-                            </li>
-                        ))}
-                    </ul>
+                <ul>
+                    {filteredTodos.map((todo) => (
+                        <li className={styles.li} key={todo.id}>
+                                <div>
+                                    <input
+                                    type="checkbox"
+                                    id={todo.id}
+                                    checked={todo.completed}
+                                    onChange={()=>togglecheck(todo.id)}
+                                    ></input>
+                                    <span className={styles.value}>{todo.value}</span>
+                                    <span className={styles.priority}>{todo.priority}</span>
+                                </div>
+                                <div>
+                                    <button className={styles.edit}>編集</button>
+                                    <button className={styles.delete} onClick={()=>handledelete(todo.id)}>削除</button>
+                                </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     );
