@@ -1,9 +1,9 @@
-import React, { useEffect, useState, type ReactNode } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './Todo.module.css';
 
 type Todo = {
     id : string;
-    value: ReactNode;
+    value: string;
     priority: string;
     completed: boolean;
 }
@@ -14,6 +14,10 @@ export const Todo = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
 
     const [filter, setFilter] = useState("all");
+
+    const [editingId, setEditingId] = useState<string | null>(null);
+    const [editingValue, setEditingValue] = useState("");
+
 
     useEffect(()=>{
         const data =localStorage.getItem("data")
@@ -37,11 +41,29 @@ export const Todo = () => {
         setPriority("");
     }
 
-    const handledelete = (id: string) => {
+    const handleDelete = (id: string) => {
         const removeItems = todos.filter(todo => todo.id !== id)
         setTodos(removeItems);
         localStorage.setItem("data", JSON.stringify(removeItems))
     }
+
+    const handleEdit = (id: string, value: string) => {
+        setEditingId(id);
+        setEditingValue(value);
+    };
+
+    const handleSave = () => {
+    const updated = todos.map(todo =>
+        todo.id === editingId ? { ...todo, value: editingValue } : todo
+    );
+
+    setTodos(updated);
+    localStorage.setItem("data", JSON.stringify(updated));
+
+    setEditingId(null);
+    setEditingValue("");
+    };
+
 
     const togglecheck = (id:string) => {
         const newTodos = todos.map(todo =>
@@ -115,24 +137,36 @@ export const Todo = () => {
                     {filteredTodos.map((todo) => (
                         <li className={todo.priority === "高"
                             ? styles.high : todo.priority === "中"
-                            ? styles.middle
-                            : styles.low} 
+                            ? styles.middle : todo.priority === "低"
+                            ? styles.low : styles.li} 
                             key={todo.id}
                         >
-                                <div>
-                                    <input
-                                    type="checkbox"
-                                    id={todo.id}
-                                    checked={todo.completed}
-                                    onChange={()=>togglecheck(todo.id)}
-                                    ></input>
-                                    <span className={!todo.completed ? styles.value : styles.nonevalue}>{todo.value}</span>
-                                    <span className={styles.priority}>{todo.priority}</span>
-                                </div>
-                                <div>
-                                    <button className={styles.edit}>編集</button>
-                                    <button className={styles.delete} onClick={()=>handledelete(todo.id)}>削除</button>
-                                </div>
+                            
+                            <div>
+                                {editingId === todo.id ? (
+                                    <>
+                                        <input
+                                            value={editingValue}
+                                            onChange={(e) => setEditingValue(e.target.value)}
+                                        />
+                                        <button onClick={handleSave}>保存</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <input
+                                        type="checkbox"
+                                        checked={todo.completed}
+                                        onChange={() => togglecheck(todo.id)}
+                                        />
+                                        <span  className={!todo.completed ? styles.value  : styles.nonevalue }>{todo.value}</span>
+                                    </>
+                                )}
+                                <span className={styles.priority}>{todo.priority}</span>
+                            </div>
+                            <div>
+                                <button className={styles.edit} onClick={()=>handleEdit(todo.id,todo.value)}>編集</button>
+                                <button className={styles.delete} onClick={()=>handleDelete(todo.id)}>削除</button>
+                            </div>
                         </li>
                     ))}
                 </ul>
