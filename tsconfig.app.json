@@ -8,8 +8,9 @@
     "types": ["vite/client"],
     "skipLibCheck": true,
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
+    /* ここを node に変更 */
+    "moduleResolution": "node",
+
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
@@ -24,7 +25,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    /* ← これを追加する！ */
+    /* 互換性のため */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
