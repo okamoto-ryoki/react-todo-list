@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.tsx'
 import { Todo } from './Todo.tsx';
 import React from 'react';
+import "react-datepicker/dist/react-datepicker.css";
 
 
 createRoot(document.getElementById('root')!).render(
