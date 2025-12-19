@@ -215,9 +215,9 @@ export const Todo = () => {
                                     })
                                     : "—"}
                             </td>
-                            <td className={styles.tddate}>
+                            <td className={styles.tddatealart}>
                                     {isThreeDaysBefore(todo.date) && (
-                                        <span className={styles.alert}>⚠期間限定</span>
+                                        <span className={styles.alert}>⚠期限間近</span>
                                     )}
                             </td>
                             <td className={styles.tdedit}><button className={styles.edit} onClick={()=>handleEdit(todo.id,todo.value)}>編集</button></td>
